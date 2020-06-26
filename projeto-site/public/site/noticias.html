@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleNoticia.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="index.html" class="logo"><img src="css/img/LogoPlay.png" alt=""></a>
+    <div class="container">
+        <div class="cadastrar">
+            <h1>Cadastre-se</h1><br>
+            <h3>Receba noticias futuras sobre o playstation 5</h3>
+            
+                <input id='nome' oninput="verificaNome()" placeholder="Digite Seu nome">
+                <span id="NomeErro"><br><br></span>
+                <input id="Email" oninput="verificaEmail()" placeholder="Digite Seu Email">
+                <span id="EmailErro"><br><br></span>
+                <textarea id="twitterText" oninput="verificaMensagem()"
+                    placeholder="Twitter algo sobre p playstation com a nossa hashtag"></textarea>
+                <span id="twitterErro"><br><br></span>
+                <button onclick="verifica()">Cadastrar</button>
+            
+
+        </div>
+        <div id="twitter">
+            <h1>Twitters</h1>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    var dados = {
+        nome: [], twitter: []
+    }
+    function verificaNome() {
+        var nomeVar = nome.value
+        nomeVar = nomeVar.trim()
+        if (nomeVar.length == 0) {
+            NomeErro.innerHTML = 'Preencha o nome <br>'
+            nome.style.border = '1px solid #f00'
+        } else {
+            NomeErro.innerHTML = '<br>'
+            nome.style.border = '1px solid #0f0'
+        }
+    }
+    function verificaEmail() {
+        var EmailVar = Email.value
+        EmailVar = EmailVar.trim()
+        if (EmailVar.length == 0) {
+            EmailErro.innerHTML = 'Preencha o Email <br>'
+            Email.style.border = '1px solid #f00'
+        } else if (EmailVar.indexOf('@') == -1 || EmailVar.indexOf('.') == -1) {
+            EmailErro.innerHTML = 'Email invalido <br>'
+            Email.style.border = '1px solid #f00'
+        } else {
+            EmailErro.innerHTML = '<br>'
+            Email.style.border = '1px solid #0f0'
+        }
+    }
+    function verificaMensagem() {
+        var twitterVar = twitterText.value;
+        
+        twitterVar = twitterVar.trimStart();
+        twitterVar = twitterVar.trimEnd();
+        twitterVar = twitterVar.toLowerCase();
+        if (twitterVar.indexOf('xbox') != -1) {
+            twitterErro.innerHTML = 'Palavra proibida <br>'
+            twitter.style.border = '1px solid #f00'
+        } else if (twitterVar.indexOf('#ps4') == -1) {
+            twitterErro.innerHTML = 'coloque a hashtag #PS4 <br>'
+            twitterText.style.border = '1px solid #f00'
+        } else {
+            twitterErro.innerHTML = '<br>'
+            twitterText.style.border = '1px solid #0f0'
+        }
+    }
+    function verifica() {
+        var twitterVar = twitterText.value;
+        twitterVar = twitterVar.trimStart();
+        twitterVar = twitterVar.trimEnd();
+        if (twitterVar.length == 0) {
+            twitterText.value = '#PS4 faça como eu e se cadastre para receber novidades'
+            twitterText.style.border = '1px solid #0f0'
+        }
+
+        verificaNome()
+        verificaEmail()
+    }
+    window.onload = obterDadosTwitter;
+    function obterDadosTwitter() {
+
+        fetch('http://localhost:3000/leituras/ultimas', { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    resposta.reverse();
+
+                    for (i = 0; i < resposta.length; i++) {
+                        var registro = resposta[i];
+
+                        // aqui, após 'registro.' use os nomes 
+                        // dos atributos que vem no JSON 
+                        // que gerou na consulta ao banco de dados
+
+                        dados.nome.push(registro.nome);
+                        dados.twitter.push(registro.twitter);
+
+                    }
+                    console.log(JSON.stringify(dados));
+
+
+
+                    mostrarTwitters();
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+    function mostrarTwitters() {
+        for(var i = 0; i < dados.nome.length; i++){
+        twitter.innerHTML +=
+            `<div class="twitters">
+                <h3>${dados.nome[i]}</h3>
+                ${dados.twitter[i]}
+            </div>`;
+        }
+    }
+</script>

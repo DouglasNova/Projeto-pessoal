@@ -1,0 +1,89 @@
+body{
+    background-image: url(img/PlayStation-PSN-Background-Wallpaper-Full-HD-Blue-Azul-Papel-de-Parede.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position-y: -50px;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+.logo img{
+    position: fixed;
+    float: left;
+    height: 50px;
+}
+.cadastrar{
+    background-color: #1f1f1f;
+    position: fixed;
+    width: 25%;
+    height: 100%;
+
+    text-align: center;
+    
+}
+.cadastrar input{
+        background-color: #2f2f2f;
+    width: 96%;
+    border: none;
+    padding: 2%;
+    font-size: 20px;
+    border-radius: 0;
+    color: #fff;
+    
+}
+.cadastrar textarea{
+        background-color: #2f2f2f;
+    width: 96%;
+    height: 200px;
+    border: none;
+    padding: 2%;
+    font-size: 20px;
+    border-radius: 0;
+    resize: none;
+    color: #fff;
+}
+textarea:focus, input:focus, button:focus{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+        background-color: #3f3f3f;
+} 
+button{
+    font-size: 24px;
+    border: none;
+    padding: 5px;
+    width: 200px;
+        background-color: #2f2f2f;
+    color: #fff;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #3f3f3f;
+}
+span{
+    color: #f00;
+}
+#twitter{
+    
+    float: right;
+    width: 55%;
+margin-top: 5%;
+text-align: center;
+
+}
+.twitters{
+        background-color: #1f1f1f;
+    padding: 4%;
+    border-radius: 0 20px 0 20px ;
+    margin-bottom: 5%;
+    text-align: left;
+}
+.twitters h3{
+    margin: 0;
+}
