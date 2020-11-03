@@ -8,8 +8,8 @@ module.exports = {
     storage: ":memory:"
   },
   production: {
-    username: 'admindouglas',
-    password: 'Douglas123',
+    username: '',
+    password: '',
     database: 'individual',
     host: 'douglasproject.database.windows.net',
     dialect: 'mssql',
